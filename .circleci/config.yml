@@ -1,0 +1,17 @@
+version: 2.1
+
+workflows:
+  update-image:
+    jobs:
+      - lint
+
+jobs:
+  lint:
+    docker:
+      - image: cimg/base:stable-20.04
+    steps:
+      - checkout
+      - run:
+          name: Lint Dockerfile
+          command: docker run --rm -i hadolint/hadolint < node/Dockerfile
+  
