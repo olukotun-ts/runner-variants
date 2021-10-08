@@ -4,6 +4,9 @@ workflows:
   update-image:
     jobs:
       - lint
+      - test:
+          requires:
+            - lint
 
 jobs:
   lint:
@@ -15,4 +18,12 @@ jobs:
       - run:
           name: Lint Dockerfile
           command: docker run --rm -i hadolint/hadolint < node/Dockerfile
-  
+  test:
+    docker:
+      - image: cimg/base:stable-20.04
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Test image build
+          command: docker build ./node -t olukotunts/runner:launch-agent-node
