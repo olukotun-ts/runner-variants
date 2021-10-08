@@ -12,6 +12,7 @@ jobs:
   lint:
     docker:
       - image: cimg/base:stable-20.04
+    resource_class: small
     steps:
       - checkout
       - setup_remote_docker
@@ -21,6 +22,7 @@ jobs:
   test:
     docker:
       - image: cimg/base:stable-20.04
+    resource_class: medium
     steps:
       - checkout
       - setup_remote_docker
